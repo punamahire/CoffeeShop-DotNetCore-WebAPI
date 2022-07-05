@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CoffeeShop.Models;
 using CoffeeShop.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace CoffeeShop.Controllers
 {
@@ -33,7 +34,7 @@ namespace CoffeeShop.Controllers
             return Ok(coffee);
         }
 
-        // https://localhost:5001/api//coffee
+        // https://localhost:5001/api/coffee
         [HttpPost]
         public IActionResult Post(Coffee coffee)
         {
@@ -52,6 +53,15 @@ namespace CoffeeShop.Controllers
 
             _coffeeRepository.Update(coffee);
             return NoContent();
+
+            // You can return a status code instead of NoContent as below:
+
+            //return this.StatusCode(StatusCodes.Status204NoContent, "Success message");
+
+            // this sometimes help on the client side to verify the operation was a success
+            // before doing further operations.
+            // On the client side console log response from fetch call and see what all 
+            // values are returned.
         }
 
         // https://localhost:5001/api/coffee/5
